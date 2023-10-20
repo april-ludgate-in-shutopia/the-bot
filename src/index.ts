@@ -1,4 +1,5 @@
 import { ChannelType, Client, Events, GatewayIntentBits } from "discord.js";
+import { handleQuestion } from "./handleQuestion";
 
 const client = new Client({
   intents: [
@@ -17,11 +18,9 @@ client.on(Events.MessageCreate, (message) => {
     return;
   }
 
-  if (!message.content.endsWith("?")) {
-    return;
+  if (message.content.endsWith("?")) {
+    handleQuestion(message);
   }
-
-  message.reply(`your question was "${message.content}"`);
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);
