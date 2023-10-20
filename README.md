@@ -1,15 +1,16 @@
 # the-bot
 
-To install dependencies:
+# Setup
 
-```bash
-bun install
-```
+A file called `.env` should be created with the following values:
 
-To run:
+- BOT_TOKEN: On Discord **Bot** page after [creating bot user](https://discord.com/developers/applications/)
+- OPENAI_API_KEY: from https://platform.openai.com/account/api-keys
 
-```bash
-bun run src/index.ts
-```
+If you want to develop, [Bun](https://bun.sh) is required. Once installed run `bun install` to download dependencies from npm.
 
-This project was created using `bun init` in bun v1.0.6. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Running
+
+`docker-compose up`, or `docker-compose up --build` after changes - this is meant for production or testing only and will not restart on changes.
+
+A local dev build that will restart on file changes can be started with `bun dev`.
