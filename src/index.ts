@@ -1,5 +1,6 @@
 import { ChannelType, Client, Events, GatewayIntentBits } from "discord.js";
 import { handleQuestion } from "./handleQuestion";
+import { askApril } from "./openai";
 
 const client = new Client({
   intents: [
@@ -11,6 +12,7 @@ const client = new Client({
 
 client.once(Events.ClientReady, ({ user }) => {
   console.log(`Ready! Logged in as ${user.tag}`);
+  askApril("hello", false).then(console.log).catch(console.error);
 });
 
 client.on(Events.MessageCreate, (message) => {
@@ -23,4 +25,4 @@ client.on(Events.MessageCreate, (message) => {
   }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);
