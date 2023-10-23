@@ -5,5 +5,5 @@ services:
         build: .
         restart: unless-stopped
         environment:
-            DISCORD_BOT_TOKEN: $DISCORD_BOT_TOKEN
-            OPENAI_API_KEY: $OPENAI_API_KEY
+            DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+            OPENAI_API_KEY: ${OPENAI_API_KEY}

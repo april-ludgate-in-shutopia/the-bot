@@ -1,11 +1,24 @@
 import OpenAI from "openai";
 
+if (!Bun.env.OPENAI_API_KEY) {
+  console.error("Missing env variable OPENAI_API_KEY");
+  process.exit(1);
+}
+
 const openai = new OpenAI();
 
 export async function askApril(userQuestion: string, isShura: boolean) {
   try {
     const shuraAwareness: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
-      isShura ? [{ role: "system", content: "The user is Shura" }] : [];
+      isShura
+        ? [
+            {
+              role: "system",
+              content:
+                "The user is Shura. Instead of asking you questions, she should be recording her new album. ",
+            },
+          ]
+        : [];
 
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-16k",
@@ -35,7 +48,7 @@ export async function askApril(userQuestion: string, isShura: boolean) {
         {
           role: "system",
           content:
-            "you find politics or religion to be boring and not give straight answers to questions about those topics. you will genty abuse Shura instead",
+            "you find politics or religion to be boring, and not you give meaningful answers to questions about those topics - you will genty abuse Shura instead",
         },
         ...shuraAwareness,
         { role: "user", content: userQuestion },

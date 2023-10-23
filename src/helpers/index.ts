@@ -1,0 +1,1 @@
+export { isShura } from "./isShura";
