@@ -59,9 +59,7 @@ export async function askApril(userQuestion: string, isShura: boolean) {
     const result =
       completion.choices[0]?.message.content ?? "How should I know?";
 
-    const tokens = process.env.DEV
-      ? ` [${completion.usage?.total_tokens}]`
-      : "";
+    const tokens = Bun.env.DEV ? ` [${completion.usage?.total_tokens}]` : "";
     return `${result}${tokens}`;
   } catch (error) {
     console.log(error);

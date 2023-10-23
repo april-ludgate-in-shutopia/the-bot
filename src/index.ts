@@ -29,6 +29,6 @@ client.on(Events.MessageCreate, (message) => {
   }
 });
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(Bun.env.DISCORD_BOT_TOKEN);
 
 export { client };

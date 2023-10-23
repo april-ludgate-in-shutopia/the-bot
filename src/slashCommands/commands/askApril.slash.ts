@@ -16,7 +16,7 @@ const handler: SlashCommandHandler = async (interaction) => {
   await interaction.deferReply();
   const response = await askApril(question, isShura(interaction.user.id));
 
-  interaction.editReply(response);
+  interaction.editReply(`> ${question}\n${response}`);
 };
 
 export const askAprilCommand: SlashCommand = { command, handler };
