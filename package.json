@@ -9,7 +9,6 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "prod": "bun run src/index.ts",
     "dev": "DEV=true bun --watch run src/index.ts"
   },
   "dependencies": {
