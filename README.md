@@ -11,7 +11,7 @@ A file called `.env` should be created with the following values:
 If you want to develop, [Bun](https://bun.sh) is required. Once installed run `bun install` to download dependencies from npm.
 
 > [!IMPORTANT]
-> When installing new dependencies, you must use the same **Bun** version as in [Dockerfile](./Dockerfile)
+> When installing new dependencies, you must use the same **Bun** version as in [Dockerfile](Dockerfile)
 
 ## Running
 
