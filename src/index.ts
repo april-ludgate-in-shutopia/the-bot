@@ -11,8 +11,13 @@ const client = new Client({
   ],
 });
 
-client.once(Events.ClientReady, ({ user }) => {
+client.once(Events.ClientReady, async ({ user }) => {
   console.log(`Ready! Logged in as ${user.tag}`);
+  if (Bun.argv[2] === "delete") {
+    await import("./slashCommands").then((sc) => sc.register(true));
+    process.exit();
+  }
+
   import("./slashCommands").then((sc) => sc.register());
   askApril("hello", false).then(console.log).catch(console.error);
 });
