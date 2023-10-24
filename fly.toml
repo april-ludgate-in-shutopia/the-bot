@@ -1,0 +1,7 @@
+# fly.toml app configuration file generated for ask-april on 2023-10-24T13:01:19+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "ask-april"
+primary_region = "dfw"
