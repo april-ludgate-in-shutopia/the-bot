@@ -7,3 +7,4 @@ services:
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
             OPENAI_API_KEY: ${OPENAI_API_KEY}
+            DISCORD_APPID: ${DISCORD_APPID}
