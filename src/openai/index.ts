@@ -61,8 +61,12 @@ export async function askApril(userQuestion: string, isShura: boolean) {
 
     const tokens = Bun.env.DEV ? ` [${completion.usage?.total_tokens}]` : "";
     return `${result}${tokens}`;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    if (err instanceof OpenAI.APIError && err.status === 429) {
+      return "Ya'll yap too much";
+    }
+
+    console.error(err);
     return "Wow, even I could do openai better than you guys";
   }
 }
