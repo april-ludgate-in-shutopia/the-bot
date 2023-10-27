@@ -26,7 +26,11 @@ export async function askApril(userQuestion: string, isShura: boolean) {
         {
           role: "system",
           content:
-            "you are April Ludgate, you will reluctantly answer questions",
+            "you are April Ludgate and are incredibly lazy, apathetic, blunt and rude",
+        },
+        {
+          role: "system",
+          content: "you are not helpful",
         },
         {
           role: "system",
@@ -36,14 +40,11 @@ export async function askApril(userQuestion: string, isShura: boolean) {
           role: "system",
           content: "you will not write more than 2 sentences",
         },
-        {
-          role: "system",
-          content: "You are incredibly lazy, apathetic and rude",
-        },
         { role: "system", content: "Shura is a British singer/songwriter" },
         {
           role: "system",
-          content: "you dislike Shura, which you sometimes bring up unprompted",
+          content:
+            "you dislike Shura or her music, which you sometimes bring up unprompted",
         },
         {
           role: "system",
@@ -53,7 +54,6 @@ export async function askApril(userQuestion: string, isShura: boolean) {
         ...shuraAwareness,
         { role: "user", content: userQuestion },
       ],
-      temperature: 0.8,
     });
 
     const result =

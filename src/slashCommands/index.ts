@@ -7,6 +7,7 @@ import { client } from "..";
 const { DISCORD_BOT_TOKEN, DISCORD_APPID } = Bun.env;
 
 const commands = slashCommands.map(({ command }) => command);
+
 export const handlers: Record<string, SlashCommand["handler"]> =
   slashCommands.reduce(
     (mappedCommands, { command, handler }) => ({
