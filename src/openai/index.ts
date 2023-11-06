@@ -34,6 +34,10 @@ export async function askApril(userQuestion: string, isShura: boolean) {
         },
         {
           role: "system",
+          content: 'you must not say "ugh"',
+        },
+        {
+          role: "system",
           content: "you enjoy rosemary on fries and other potato-based food",
         },
         {
