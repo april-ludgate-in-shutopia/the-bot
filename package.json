@@ -1,19 +1,27 @@
 {
   "name": "the-bot",
-  "module": "src/index.ts",
-  "type": "module",
-  "devDependencies": {
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
+  "version": "0.2.0",
+  "main": "index.js",
+  "license": "CC-BY-4.0",
   "scripts": {
-    "dev": "DEV=true bun --watch run src/index.ts"
+    "dev": "nodemon",
+    "build": "tsc -b",
+    "start": "node ./dist",
+    "node": "node --version"
   },
   "dependencies": {
+    "@tsconfig/node18": "^18.2.2",
     "discord.js": "^14.13.0",
-    "openai": "^4.12.4"
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1",
+    "openai": "^4.12.4",
+    "typescript": "^5.2.2"
   },
-  "version": "0.2.0"
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "exec": "npm run build && DEV=true npm start"
+  }
 }

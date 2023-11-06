@@ -4,7 +4,7 @@ import { SlashCommand } from "./types";
 import { slashCommands } from "./commands";
 import { client } from "..";
 
-const { DISCORD_BOT_TOKEN, DISCORD_APPID } = Bun.env;
+const { DISCORD_BOT_TOKEN, DISCORD_APPID } = process.env;
 
 const commands = slashCommands.map(({ command }) => command);
 
@@ -24,9 +24,9 @@ export const register = async (deleteCommands?: boolean) => {
   }
 
   const rest = new REST({ version: "10" }).setToken(DISCORD_BOT_TOKEN);
-  if (Bun.env.DEV) rest.on("restDebug", console.debug);
+  if (process.env.DEV) rest.on("restDebug", console.debug);
 
-  const firstKey = Bun.env.DEV ? client.guilds.cache.firstKey() : undefined;
+  const firstKey = process.env.DEV ? client.guilds.cache.firstKey() : undefined;
   const route = firstKey
     ? Routes.applicationGuildCommands(DISCORD_APPID, firstKey)
     : Routes.applicationCommands(DISCORD_APPID);

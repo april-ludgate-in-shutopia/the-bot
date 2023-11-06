@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-if (!Bun.env.OPENAI_API_KEY) {
+if (!process.env.OPENAI_API_KEY) {
   console.error("Missing env variable OPENAI_API_KEY");
   process.exit(1);
 }
@@ -59,7 +59,9 @@ export async function askApril(userQuestion: string, isShura: boolean) {
     const result =
       completion.choices[0]?.message.content ?? "How should I know?";
 
-    const tokens = Bun.env.DEV ? ` [${completion.usage?.total_tokens}]` : "";
+    const tokens = process.env.DEV
+      ? ` [${completion.usage?.total_tokens}]`
+      : "";
     return `${result}${tokens}`;
   } catch (err) {
     if (err instanceof OpenAI.APIError && err.status === 429) {
