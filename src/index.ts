@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { ChannelType, Client, Events, GatewayIntentBits } from "discord.js";
 import { handleQuestion } from "./handleQuestion";
 import { askApril } from "./openai";
@@ -13,7 +14,7 @@ const client = new Client({
 
 client.once(Events.ClientReady, async ({ user }) => {
   console.log(`Ready! Logged in as ${user.tag}`);
-  if (Bun.argv[2] === "delete") {
+  if (process.argv[2] === "delete") {
     await import("./slashCommands").then((sc) => sc.register(true));
     process.exit();
   }
@@ -34,6 +35,6 @@ client.on(Events.MessageCreate, (message) => {
   }
 });
 
-client.login(Bun.env.DISCORD_BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);
 
 export { client };
