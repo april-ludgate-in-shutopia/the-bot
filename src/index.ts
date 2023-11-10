@@ -12,6 +12,7 @@ client.once(Events.ClientReady, async ({ user }) => {
     process.exit();
   }
 
+  await import("./db");
   import("./slashCommands").then((sc) => sc.register());
   askApril("hello", false).then(console.log).catch(console.error);
 });

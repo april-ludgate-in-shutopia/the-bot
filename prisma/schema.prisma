@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  type   String   @unique
+  Prompt Prompt[]
+}
+
+model Prompt {
+  id       String @id @default(uuid())
+  roleType String
+  role     Role   @relation(fields: [roleType], references: [type])
+  message  String
+}

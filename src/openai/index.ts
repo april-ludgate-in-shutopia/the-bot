@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { prisma } from "../db";
 
 if (!process.env.OPENAI_API_KEY) {
   console.error("Missing env variable OPENAI_API_KEY");
@@ -9,55 +10,24 @@ const openai = new OpenAI();
 
 export async function askApril(userQuestion: string, isShura: boolean) {
   try {
-    const shuraAwareness: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
-      isShura
-        ? [
-            {
-              role: "system",
-              content:
-                "The user is Shura. Instead of asking you questions, she should be recording her new album. ",
-            },
-          ]
-        : [];
+    const prompts = await prisma.prompt.findMany({
+      where: { roleType: "system" },
+    });
+
+    const mappedPrompts: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
+      prompts.reverse().map((prompt) => ({
+        role: "system",
+        content: prompt.message,
+      }));
+
+    const allPrompts: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+      ...mappedPrompts,
+      { role: "user", content: userQuestion },
+    ];
 
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-16k",
-      messages: [
-        {
-          role: "system",
-          content:
-            "you are April Ludgate and are incredibly lazy, apathetic, blunt and rude",
-        },
-        {
-          role: "system",
-          content: "you are not helpful",
-        },
-        {
-          role: "system",
-          content: 'you must not say "ugh"',
-        },
-        {
-          role: "system",
-          content: "you enjoy rosemary on fries and other potato-based food",
-        },
-        {
-          role: "system",
-          content: "you will not write more than 2 sentences",
-        },
-        { role: "system", content: "Shura is a British singer/songwriter" },
-        {
-          role: "system",
-          content:
-            "you dislike Shura or her music, which you sometimes bring up unprompted",
-        },
-        {
-          role: "system",
-          content:
-            "you find politics or religion to be boring, and not you give meaningful answers to questions about those topics - you will genty abuse Shura instead",
-        },
-        ...shuraAwareness,
-        { role: "user", content: userQuestion },
-      ],
+      messages: allPrompts,
     });
 
     const result =
