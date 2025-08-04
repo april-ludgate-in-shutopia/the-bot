@@ -1,19 +1,13 @@
-import { ChannelType, Client, Events, GatewayIntentBits } from "discord.js";
-import { handleQuestion } from "./handleQuestion";
+import "dotenv/config";
+import { Client, Events } from "discord.js";
 import { askApril } from "./openai";
 import { handleSlashCommands } from "./handleSlashCommands";
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-  ],
-});
+const client = new Client({ intents: [] });
 
 client.once(Events.ClientReady, async ({ user }) => {
   console.log(`Ready! Logged in as ${user.tag}`);
-  if (Bun.argv[2] === "delete") {
+  if (process.argv[2] === "delete") {
     await import("./slashCommands").then((sc) => sc.register(true));
     process.exit();
   }
@@ -24,16 +18,6 @@ client.once(Events.ClientReady, async ({ user }) => {
 
 client.on("interactionCreate", handleSlashCommands);
 
-client.on(Events.MessageCreate, (message) => {
-  if (message.author.bot || message.channel.type !== ChannelType.GuildText) {
-    return;
-  }
-
-  if (message.content.endsWith("?")) {
-    handleQuestion(message);
-  }
-});
-
-client.login(Bun.env.DISCORD_BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);
 
 export { client };
